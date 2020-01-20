@@ -28,6 +28,56 @@ class Tablero
     puts '╚═══╩═══╩═══╝'
   end
 
+  def validartiro(tiro)
+    if @tablero.any? tiro.to_i
+      return tiro.to_i-1
+    else
+      puts "Tiro invalido tira de nuevo"
+      tiro = gets.chomp    
+      validartiro(tiro)
+    end
+  end
+
+  def tiro(tiro,jugador)
+    if (tiro == "0")
+      return false
+    end
+    tiro = tiro.to_i
+    if (tiro > 0) && (tiro <= 9)
+      if jugador
+        @tablero[tiro-1] = "X"
+      else
+        @tablero[tiro-1] = "O"
+      end
+      return true
+    else
+      puts "Tiro inválido por favor tira de nuevo"
+      tiro(gets.chomp,jugador)
+    end
+  end
+
+  def empatado?
+    if @tablero.none?(Numeric)
+      puts "-.-.- Empatado -.-.-"
+      return true
+    else
+      return false
+    end
+  end
+
+  def checar_lineas(jugador_x,jugador_o)
+    @lineas_ganadoras.each_with_index { |elem,i| 
+      if (@tablero[elem[0]] == jugador_x.simbolo) && (@tablero[elem[1]] == jugador_x.simbolo) && (@tablero[elem[2]] == jugador_x.simbolo)
+        puts "-.-.- Ganaste \"#{jugador_x.simbolo}\", #{jugador_x.nombre} -.-.-"
+        return true
+      elsif (@tablero[elem[0]] == jugador_o.simbolo) && (@tablero[elem[1]] == jugador_o.simbolo) && (@tablero[elem[2]] == jugador_o.simbolo)
+        puts "-.-.- Ganaste \"#{jugador_o.simbolo}\", #{jugador_o.nombre} -.-.-"
+        return true
+      end
+    }
+    false
+  end
+
   def limpiar
     system("clear")
   end

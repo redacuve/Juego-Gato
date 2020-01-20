@@ -13,11 +13,28 @@ def juego
   mi_tablero.limpiar
   puts "Hola #{jugador_x.nombre} y #{jugador_o.nombre}, ¡Vamos a empezar!"
   mi_tablero.dibuja_tablero
-  band = true
- end
+  turno = true
+  while true
+    puts turno ? "#{jugador_x.nombre} \"#{jugador_x.simbolo}\" Introduce tu tiro (1 - 9)" : "#{jugador_o.nombre} \"#{jugador_o.simbolo}\" Introduce tu tiro (1 - 9)"
+    tiro = gets.chop
+    case tiro
+    when "0"
+      break
+    else
+      break unless hay_juego = mi_tablero.tiro(tiro,turno)
+    end
+    mi_tablero.limpiar
+    mi_tablero.dibuja_tablero
+    if mi_tablero.checar_lineas(jugador_x,jugador_o) || mi_tablero.empatado? 
+      break
+    end
+    turno = !turno
+  end
+end
+
 
 begin 
   juego
   puts "¿Jugar de nuevo? S/N"
   op = gets.chop.downcase
-end while op == "s"
+end while (op == "s") || (op == "y")
