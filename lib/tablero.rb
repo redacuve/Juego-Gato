@@ -40,10 +40,10 @@ class Tablero
 
     tiro = tiro.to_i
     if tiro.positive? && (tiro <= 9)
-      if jugador
-        @tablero[tiro - 1] = 'X'
+      @tablero[tiro - 1] = if jugador
+        'X'
       else
-        @tablero[tiro - 1] = 'O'
+        'Y'
       end
       true
     else
