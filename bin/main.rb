@@ -31,7 +31,7 @@ def juego
     mi_tablero.limpiar
     mi_tablero.dibuja_tablero
     break if mi_tablero.checar_lineas(jugador_x, jugador_o) || mi_tablero.empatado?
-    
+
     turno = !turno
   end
 end

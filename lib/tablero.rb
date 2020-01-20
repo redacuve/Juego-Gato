@@ -39,14 +39,13 @@ class Tablero
     return false if tiro == '0'
 
     tiro = tiro.to_i
-    if (tiro.positive?) && (tiro <= 9)
+    if tiro.positive? && (tiro <= 9)
       if jugador
         @tablero[tiro - 1] = 'X'
-        return true
       else
         @tablero[tiro - 1] = 'O'
-        return true
       end
+      true
     else
       puts 'Tiro inválido por favor tira de nuevo'
       tiro(gets.chomp, jugador)
@@ -55,14 +54,13 @@ class Tablero
 
   def empatado?
     return false unless @tablero.none?(Numeric)
-    
+
     puts '-.-.- Empatado -.-.-'
-    return true
+    true
   end
 
   def checar_lineas(jugador_x, jugador_o)
-    @lineas_ganadoras.each_with_index do 
-      |elem,i| 
+    @lineas_ganadoras.each do |elem|
       if (@tablero[elem[0]] == jugador_x.simbolo) && (@tablero[elem[1]] == jugador_x.simbolo) && (@tablero[elem[2]] == jugador_x.simbolo)
         puts "-.-.- Ganaste \"#{jugador_x.simbolo}\", #{jugador_x.nombre} -.-.-"
         return true
