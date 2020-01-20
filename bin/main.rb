@@ -1,61 +1,20 @@
 #!/usr/bin/env ruby
-$tablero = [1,2,3,4,5,6,7,8,9]
-$turnos = 9
 
-
-def muestra_tablero
-  puts "╔═══╦═══╦═══╗"
-  puts "║ #{$tablero[0]} ║ #{$tablero[1]} ║ #{$tablero[2]} ║"
-  puts "╠═══╬═══╬═══╣"
-  puts "║ #{$tablero[3]} ║ #{$tablero[4]} ║ #{$tablero[5]} ║"
-  puts "╠═══╬═══╬═══╣"
-  puts "║ #{$tablero[6]} ║ #{$tablero[7]} ║ #{$tablero[8]} ║"
-  puts "╚═══╩═══╩═══╝"
-end
-
-def validatiro(tiro)
-  if $tablero.any?(tiro.to_i)
-    puts "Tiro Valido"
-    $turnos -= 1
-    return true
-  elsif tiro == "0"
-    puts "Se ha Terminado el juego"
-    return false
-  else
-    puts "Tiro Inválido , tira de nuevo"
-    validatiro(gets.chop)
-  end
-end
-
-def limpiar
-  system "clear"
-end
+require '../lib/tablero.rb'
+require'../lib/jugador.rb'
 
 def juego
-  reglas
-  muestra_tablero
+  mi_tablero = Tablero.new
+  mi_tablero.reglas
+  puts "Jugador #1 Introduce tu nombre"
+  jugador_x = Jugador.new(gets.chop.capitalize,"X")
+  puts "Jugador #2 Introduce tu nombre"
+  jugador_o = Jugador.new(gets.chop.capitalize, "O")
+  mi_tablero.limpiar
+  puts "Hola #{jugador_x.nombre} y #{jugador_o.nombre}, ¡Vamos a empezar!"
+  mi_tablero.dibuja_tablero
   band = true
-  while true
-    puts band ? "Jugador #1 'X' Introduce tu tiro (1 - 9)" : "Jugador #2 'O' Introduce tu tiro (1 - 9)"
-    tiro = gets.chop
-    case tiro
-    when "0"
-      break
-    else
-      unless hay_juego = validatiro(tiro)
-        break
-      end
-    end
-    if $turnos <= 0
-      puts "Juego empatado"
-      break
-    end
-    limpiar
-    band = !band
-    #muestra_tablero
-    puts "Tablero actualizado"
-  end
-end
+ end
 
 begin 
   juego

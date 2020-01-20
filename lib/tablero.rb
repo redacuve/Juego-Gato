@@ -19,12 +19,16 @@ class Tablero
   end
 
   def dibuja_tablero
-    puts "╔═══╦═══╦═══╗"
-    puts "║ #{@@tablero[0]} ║ #{@@tablero[1]} ║ #{@@tablero[2]} ║"
-    puts "╠═══╬═══╬═══╣"
-    puts "║ #{@@tablero[3]} ║ #{@@tablero[4]} ║ #{@@tablero[5]} ║"
-    puts "╠═══╬═══╬═══╣"
-    puts "║ #{@@tablero[6]} ║ #{@@tablero[7]} ║ #{@@tablero[8]} ║"
-    puts "╚═══╩═══╩═══╝"
+    puts '╔═══╦═══╦═══╗'
+    puts "║ #{@tablero[0]} ║ #{@tablero[1]} ║ #{@tablero[2]} ║"
+    puts '╠═══╬═══╬═══╣'
+    puts "║ #{@tablero[3]} ║ #{@tablero[4]} ║ #{@tablero[5]} ║"
+    puts '╠═══╬═══╬═══╣'
+    puts "║ #{@tablero[6]} ║ #{@tablero[7]} ║ #{@tablero[8]} ║"
+    puts '╚═══╩═══╩═══╝'
+  end
+
+  def limpiar
+    system("clear")
   end
 end
