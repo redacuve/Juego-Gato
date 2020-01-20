@@ -39,8 +39,8 @@ class Tablero
     return false if tiro == '0'
 
     tiro = tiro.to_i
-    if tiro.positive? && (tiro <= 9)
-      @tablero[tiro - 1] = jugador ? 'X' : 'Y'
+    if @tablero.any? tiro
+      @tablero[tiro - 1] = jugador ? 'X' : 'O'
       true
     else
       puts 'Tiro inválido por favor tira de nuevo'
