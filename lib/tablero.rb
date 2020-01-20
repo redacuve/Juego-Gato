@@ -42,11 +42,10 @@ class Tablero
     if tiro.positive? && (tiro <= 9)
       if jugador
         @tablero[tiro - 1] = 'X'
-        true
       else
         @tablero[tiro - 1] = 'O'
-        true
       end
+      true
     else
       puts 'Tiro inválido por favor tira de nuevo'
       tiro(gets.chomp, jugador)
@@ -60,7 +59,7 @@ class Tablero
     true
   end
 
-# rubocop:disable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
   def checar_lineas(jugador_x, jugador_o)
     @lineas_ganadoras.each do |elem|
       if (@tablero[elem[0]] == jugador_x.simbolo) && (@tablero[elem[1]] == jugador_x.simbolo) && (@tablero[elem[2]] == jugador_x.simbolo)
@@ -73,7 +72,7 @@ class Tablero
     end
     false
   end
-# rubocop:enable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
 
   def limpiar
     system('clear')
