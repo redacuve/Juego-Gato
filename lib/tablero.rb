@@ -29,41 +29,40 @@ class Tablero
   end
 
   def validartiro(tiro)
-    return tiro.to_i-1 if @tablero.any? tiro.to_i
-    puts "Tiro invalido tira de nuevo"
-    tiro = gets.chomp    
-    validartiro(tiro)
+    return tiro.to_i - 1 if @tablero.any? tiro.to_i
+
+    puts 'Tiro invalido tira de nuevo'
+    validartiro(gets.chomp)
   end
 
-  def tiro(tiro,jugador)
-    if (tiro == "0")
-      return false
-    end
+  def tiro(tiro, jugador)
+    return false if tiro == '0'
+
     tiro = tiro.to_i
-    if (tiro > 0) && (tiro <= 9)
+    if (tiro.positive?) && (tiro <= 9)
       if jugador
-        @tablero[tiro-1] = "X"
+        @tablero[tiro - 1] = 'X'
+        return true
       else
-        @tablero[tiro-1] = "O"
+        @tablero[tiro - 1] = 'O'
+        return true
       end
-      return true
     else
-      puts "Tiro inválido por favor tira de nuevo"
-      tiro(gets.chomp,jugador)
+      puts 'Tiro inválido por favor tira de nuevo'
+      tiro(gets.chomp, jugador)
     end
   end
 
   def empatado?
-    if @tablero.none?(Numeric)
-      puts "-.-.- Empatado -.-.-"
-      return true
-    else
-      return false
-    end
+    return false unless @tablero.none?(Numeric)
+    
+    puts '-.-.- Empatado -.-.-'
+    return true
   end
 
-  def checar_lineas(jugador_x,jugador_o)
-    @lineas_ganadoras.each_with_index { |elem,i| 
+  def checar_lineas(jugador_x, jugador_o)
+    @lineas_ganadoras.each_with_index do 
+      |elem,i| 
       if (@tablero[elem[0]] == jugador_x.simbolo) && (@tablero[elem[1]] == jugador_x.simbolo) && (@tablero[elem[2]] == jugador_x.simbolo)
         puts "-.-.- Ganaste \"#{jugador_x.simbolo}\", #{jugador_x.nombre} -.-.-"
         return true
@@ -71,11 +70,11 @@ class Tablero
         puts "-.-.- Ganaste \"#{jugador_o.simbolo}\", #{jugador_o.nombre} -.-.-"
         return true
       end
-    }
+    end
     false
   end
 
   def limpiar
-    system("clear")
+    system('clear')
   end
 end
