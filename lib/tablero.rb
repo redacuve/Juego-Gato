@@ -3,10 +3,10 @@ class Tablero
   attr_reader :lineas_ganadoras
 
   def initialize
-    @tablero = [1,2,3,4,5,6,7,8,9]
-    @lineas_ganadoras = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]
+    @tablero = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    @lineas_ganadoras = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
   end
-  
+
   def reglas
     puts "Este es el juego del Gato
       Es para dos jugadores
@@ -29,13 +29,10 @@ class Tablero
   end
 
   def validartiro(tiro)
-    if @tablero.any? tiro.to_i
-      return tiro.to_i-1
-    else
-      puts "Tiro invalido tira de nuevo"
-      tiro = gets.chomp    
-      validartiro(tiro)
-    end
+    return tiro.to_i-1 if @tablero.any? tiro.to_i
+    puts "Tiro invalido tira de nuevo"
+    tiro = gets.chomp    
+    validartiro(tiro)
   end
 
   def tiro(tiro,jugador)

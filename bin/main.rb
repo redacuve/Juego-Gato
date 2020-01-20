@@ -2,7 +2,7 @@
 
 require '../lib/tablero.rb'
 
-require'../lib/jugador.rb'
+require '../lib/jugador.rb'
 
 def juego
   mi_tablero = Tablero.new
@@ -26,17 +26,14 @@ def juego
     when '0'
       break
     else
-      break unless hay_juego = mi_tablero.tiro(tiro,turno)
+      break unless mi_tablero.tiro(tiro, turno)
     end
     mi_tablero.limpiar
     mi_tablero.dibuja_tablero
-    if mi_tablero.checar_lineas(jugador_x,jugador_o) || mi_tablero.empatado? 
-      break
-    end
+    break if mi_tablero.checar_lineas(jugador_x, jugador_o) || mi_tablero.empatado?
     turno = !turno
   end
 end
-
 
 begin 
   juego
