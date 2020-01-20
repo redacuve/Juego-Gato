@@ -1,74 +1,39 @@
 #!/usr/bin/env ruby
-$tablero = [1,2,3,4,5,6,7,8,9]
-$turnos = 9
 
-def reglas
-  puts "Este es el juego del Gato
-      Es para dos jugadores
-      Las instrucciones para este juego son las siguientes
-      1.- El tablero se compone de 9 casillas
-      2.- El primer jugador juega con X y el segundo con O
-      3.- El primer jugador selecciona en que casilla poner su moviento despues el segundo y asi sucesivamente
-      4.- Gana quien logre tres casillas con su símbolo
-      5.- El juego termina cuando todos los tiros fueron hechos o se selecciona la opcion 0"
-end
+require '../lib/tablero.rb'
 
-def muestra_tablero
-  puts "╔═══╦═══╦═══╗"
-  puts "║ #{$tablero[0]} ║ #{$tablero[1]} ║ #{$tablero[2]} ║"
-  puts "╠═══╬═══╬═══╣"
-  puts "║ #{$tablero[3]} ║ #{$tablero[4]} ║ #{$tablero[5]} ║"
-  puts "╠═══╬═══╬═══╣"
-  puts "║ #{$tablero[6]} ║ #{$tablero[7]} ║ #{$tablero[8]} ║"
-  puts "╚═══╩═══╩═══╝"
-end
-
-def validatiro(tiro)
-  if $tablero.any?(tiro.to_i)
-    puts "Tiro Valido"
-    $turnos -= 1
-    return true
-  elsif tiro == "0"
-    puts "Se ha Terminado el juego"
-    return false
-  else
-    puts "Tiro Inválido , tira de nuevo"
-    validatiro(gets.chop)
-  end
-end
-
-def limpiar
-  system "clear"
-end
+require '../lib/jugador.rb'
 
 def juego
-  reglas
-  muestra_tablero
-  band = true
+  mi_tablero = Tablero.new
+  mi_tablero.reglas
+  puts 'Jugador #1 Introduce tu nombre'
+  jugador_x = Jugador.new(gets.chop.capitalize, 'X')
+  puts 'Jugador #2 Introduce tu nombre'
+  jugador_o = Jugador.new(gets.chop.capitalize, 'O')
+  mi_tablero.limpiar
+  puts "Hola #{jugador_x.nombre} y #{jugador_o.nombre}, ¡Vamos a empezar!"
+  mi_tablero.dibuja_tablero
+  turno = true
   while true
-    puts band ? "Jugador #1 'X' Introduce tu tiro (1 - 9)" : "Jugador #2 'O' Introduce tu tiro (1 - 9)"
-    tiro = gets.chop
-    case tiro
-    when "0"
-      break
+    if turno
+      puts "#{jugador_x.nombre} \"#{jugador_x.simbolo}\" Introduce tu tiro (1 - 9)"
     else
-      unless hay_juego = validatiro(tiro)
-        break
-      end
+      puts "#{jugador_o.nombre} \"#{jugador_o.simbolo}\" Introduce tu tiro (1 - 9)"
     end
-    if $turnos <= 0
-      puts "Juego empatado"
-      break
-    end
-    limpiar
-    band = !band
-    #muestra_tablero
-    puts "Tablero actualizado"
+    tiro = gets.chop
+    break unless mi_tablero.tiro(tiro, turno)
+
+    mi_tablero.limpiar
+    mi_tablero.dibuja_tablero
+    break if mi_tablero.checar_lineas(jugador_x, jugador_o) || mi_tablero.empatado?
+
+    turno = !turno
   end
 end
 
 begin 
   juego
-  puts "¿Jugar de nuevo? S/N"
+  puts '¿Jugar de nuevo? S/N'
   op = gets.chop.downcase
-end while op == "s"
+end while (op == 's') || (op == 'y')
