@@ -22,12 +22,8 @@ def juego
       puts "#{jugador_o.nombre} \"#{jugador_o.simbolo}\" Introduce tu tiro (1 - 9)"
     end
     tiro = gets.chop
-    case tiro
-    when '0'
-      break
-    else
-      break unless mi_tablero.tiro(tiro, turno)
-    end
+    break unless mi_tablero.tiro(tiro, turno)
+    
     mi_tablero.limpiar
     mi_tablero.dibuja_tablero
     break if mi_tablero.checar_lineas(jugador_x, jugador_o) || mi_tablero.empatado?

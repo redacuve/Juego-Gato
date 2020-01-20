@@ -28,13 +28,6 @@ class Tablero
     puts '╚═══╩═══╩═══╝'
   end
 
-  def validartiro(tiro)
-    return tiro.to_i - 1 if @tablero.any? tiro.to_i
-
-    puts 'Tiro invalido tira de nuevo'
-    validartiro(gets.chomp)
-  end
-
   def tiro(tiro, jugador)
     return false if tiro == '0'
 
