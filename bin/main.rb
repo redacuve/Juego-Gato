@@ -23,7 +23,7 @@ def juego
     end
     tiro = gets.chop
     break unless mi_tablero.tiro(tiro, turno)
-    
+
     mi_tablero.limpiar
     mi_tablero.dibuja_tablero
     break if mi_tablero.checar_lineas(jugador_x, jugador_o) || mi_tablero.empatado?
